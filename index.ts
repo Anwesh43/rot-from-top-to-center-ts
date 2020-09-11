@@ -13,3 +13,18 @@ const colors : Array<string> = [
     "#FF5722"
 ]
 const backColor : string = "#BDBDBD"
+
+class ScaleUtil {
+
+    static sinify(scale : number) {
+        return Math.sin(scale * Math.PI)
+    }
+
+    static maxScale(scale : number, i : number, n : number) : number {
+        return Math.max(0, scale - i / n)
+    }
+
+    static divideScale(scale : number, i : number, n : number) : number {
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
