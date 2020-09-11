@@ -1,5 +1,3 @@
-import { curry } from "lodash"
-
 const w : number = window.innerWidth 
 const h : number = window.innerHeight
 const parts : number = 5
@@ -184,5 +182,28 @@ class RFTCNode {
         }
         cb()
         return this 
+    }
+}
+
+class RotFromTopToCenter {
+
+    curr : RFTCNode = new RFTCNode(0)
+    dir : number = 1
+
+    draw(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb : Function) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    startUpdating(cb : Function) {
+        this.curr.startUpdating(cb)
     }
 }
