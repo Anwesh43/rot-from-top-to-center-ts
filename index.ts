@@ -207,3 +207,25 @@ class RotFromTopToCenter {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rftc : RotFromTopToCenter = new RotFromTopToCenter()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rftc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rftc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rftc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
